@@ -28,21 +28,24 @@ export default function Home(props) {
             type: ACTION_TYPES.SET_COFFEE_STORES,
             payload: {coffeeStores: props.coffeeStores},
         });
-        const fetchCoffeeStoresByLatLong = async () => {
+        /// use an async IIF
+       (async () => {
             if(latLong) {
                 try {
-                    const fetchedCoffeeStores = await fetchCoffeeStores(latLong, 30);
+                    const fetchedCoffeeStores = await fetch(`/api/coffee-stores-by-location?latLong=${latLong}&limit=30`);
+                    const coffeeStores = await fetchedCoffeeStores.json();
                     dispatch({
                         type: ACTION_TYPES.SET_COFFEE_STORES,
-                        payload: {coffeeStores: fetchedCoffeeStores},
+                        payload: {coffeeStores: coffeeStores},
                     });
                     setFetchCoffeeStoresError("");
                 } catch (error) {
                     setFetchCoffeeStoresError(error.message);
                 }
             }
-        }
-        fetchCoffeeStoresByLatLong();
+        })().then(() => {
+           setFetchCoffeeStoresError("");
+       });
     }, [latLong, dispatch]);
     const bannerButtonClickHandler = () => trackLocationHandler();
   return (
