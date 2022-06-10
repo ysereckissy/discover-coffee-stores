@@ -34,28 +34,59 @@ export async function getStaticPaths() {
 }
 const CoffeeStore = (props) => {
     const router = useRouter();
-    const [coffeeStore, setCoffeeStore] = useState(props.coffeeStore || {});
-    if(router.isFallback) {
-        return <div>Loading...</div>
-    }
-    const upvoteHandler = () => console.log("Up voted!");
     const id = router.query.id;
+    console.log("route Id: ", id);
+    const [coffeeStore, setCoffeeStore] = useState(props.coffeeStore || {});
     const {
         state: { coffeeStores }
     } = useContext(StoreContext);
 
+    const upvoteHandler = () => {
+        console.log("Up voted!");
+    }
+    console.log("coffeeStore value: ", coffeeStore);
+    const createCoffeeStoreHandler = async (data) => {
+        const {id, name,imgUrl, neighbourhood, address} = data;
+        try {
+            const response = await fetch('/api/create-coffee-store', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    id,
+                    name,
+                    voting: 0,
+                    imgUrl,
+                    neighbourhood: neighbourhood || "",
+                    address: address || ""
+                }),
+            });
+            return await response.json();
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
     useEffect(() => {
         if(isEmpty(props.coffeeStore)) {
             if(coffeeStores.length > 0) {
-                const storeById = coffeeStores.find(store => store.id.toString() === id.toString());
+                const storeById = coffeeStores.find(store => store.id.toString() === id);
                 console.log("store by ID: ", storeById);
-                setCoffeeStore(storeById);
+                if(storeById){
+                    setCoffeeStore(storeById);
+                    createCoffeeStoreHandler(storeById).then(data => console.log("From Context: ", data));
+                }
             }
+        } else {
+            createCoffeeStoreHandler(props.coffeeStore).then(data => console.log("From SSR: ", data));
         }
-    }, [id, props, props.coffeeStore, coffeeStores])
-    const { address, name, neighbourhood, imgUrl} = coffeeStore;
-    console.log("coffeeStore: ", coffeeStore);
+    }, [id])
 
+    const { address, name, neighbourhood, imgUrl} = coffeeStore;
+    if(router.isFallback) {
+        return <div>Loading...</div>
+    }
     return (
         <div className={styles.layout}>
             <Head>
