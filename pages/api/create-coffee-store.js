@@ -1,4 +1,4 @@
-import {table, getMinifiedRecords } from "../../lib/airtable";
+import {table, getMinifiedRecords, findRecordByFilter} from "../../lib/airtable";
 
 const createCoffeeStore = async (req, res) => {
     if (req.method === 'POST') {
@@ -8,14 +8,10 @@ const createCoffeeStore = async (req, res) => {
             return res.json({message: "invalid id provided"});
         }
         try {
-            const records = await table.select({
-                view: 'Grid view',
-                filterByFormula: `id="${id}"`
-            }).firstPage();
+            const records = await findRecordByFilter(id);
             if(records.length) {
-                res.status(200).json(getMinifiedRecords(records));
+                res.status(200).json(records);
             } else {
-                console.log("Records :", records, "id=", id);
                 /// record doesn't exist. create it
                 /// make sure the name is valid before moving forward
                 if(!name) {

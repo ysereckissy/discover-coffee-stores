@@ -8,7 +8,6 @@ export default async (req, res) => {
         res.status(200);
         res.json(response);
     } catch (error) {
-        console.error("There is some Error: ", error);
         res.stat(500);
         res.json({message: "Oh no! Something went wrong!"});
     }
