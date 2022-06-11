@@ -1,6 +1,6 @@
 import {fetchCoffeeStores} from "../../lib/coffee-stores";
 
-export default async (req, res) => {
+const coffeeStoreByLocation = async (req, res) => {
     /// configure latLong and limit
     try {
         const {latLong, limit} = req.query;
@@ -12,3 +12,5 @@ export default async (req, res) => {
         res.json({message: "Oh no! Something went wrong!"});
     }
 }
+
+export default coffeeStoreByLocation;

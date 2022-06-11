@@ -20,7 +20,7 @@ export async function getStaticProps(context) {
 export default function Home(props) {
     const { trackLocationHandler, locationError, isFindingLocation } = useTrackLocation();
     const [fetchCoffeeStoresError, setFetchCoffeeStoresError] = useState('');
-    const { dispatch, state } = useContext(StoreContext);
+    const { state, dispatch } = useContext(StoreContext);
     const { coffeeStores, latLong } = state;
 
     useEffect(() => {
@@ -46,7 +46,7 @@ export default function Home(props) {
         })().then(() => {
            setFetchCoffeeStoresError("");
        });
-    }, [latLong, dispatch]);
+    }, [latLong, dispatch, props.coffeeStores]);
     const bannerButtonClickHandler = () => trackLocationHandler();
   return (
     <div className={styles.container}>
@@ -62,7 +62,7 @@ export default function Home(props) {
           />
           { locationError && <p>Something Went Wrong! ${locationError}</p>}
           <div className={styles.heroImage}>
-              <Image src="/static/hero-image.png" width={700} height={400}/>
+              <Image src="/static/hero-image.png" width={700} height={400} alt="hero image"/>
           </div>
           {coffeeStores.length > 0 &&
               <div className={styles.sectionWrapper}>
@@ -71,7 +71,7 @@ export default function Home(props) {
                       (<h2 className={styles.heading2}>Houston Texas stores</h2>)}
 
                   <div className={styles.cardLayout}>
-                      {coffeeStores.map((store) => {
+                      {coffeeStores.map((store, idx) => {
                           return (
                               <Card key={store.id}
                                     name={store.name}

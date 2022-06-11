@@ -99,7 +99,7 @@ const CoffeeStore = (props) => {
         } else {
             createCoffeeStoreHandler(props.coffeeStore);
         }
-    }, [id])
+    }, [id, coffeeStores, props.coffeeStore])
 
     useEffect(() => {
         if(data && data.length > 0) {
@@ -134,16 +134,16 @@ const CoffeeStore = (props) => {
                 </div>
                 <div className={cls("glass", styles.col2)}>
                     <div className={styles.iconWrapper}>
-                        <Image src="/static/icons/location.svg" width={24} height={24} />
+                        <Image src="/static/icons/location.svg" width={24} height={24} alt="location"/>
                         <p className={styles.text}>{address}</p>
                     </div>
                     {(neighbourhood) &&
                         (<div className={styles.iconWrapper}>
-                            <Image src="/static/icons/nearMe.svg" width={24} height={24} />
+                            <Image src="/static/icons/nearMe.svg" width={24} height={24} alt="nearMe"/>
                             <p className={styles.text}>{neighbourhood}</p>
                         </div>)}
                     <div className={styles.iconWrapper}>
-                        <Image src="/static/icons/star.svg" width={24} height={24} />
+                        <Image src="/static/icons/star.svg" width={24} height={24} alt="upvote"/>
                         <p className={styles.text}>{votingCount}</p>
                     </div>
                     <button className={styles.upvoteButton} onClick={upvoteHandler}>Up vote!</button>

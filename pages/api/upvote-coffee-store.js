@@ -1,6 +1,6 @@
-import {findRecordByFilter, getMinifiedRecords, table, updateCoffeeStores} from "../../lib/airtable";
+import {updateCoffeeStores} from "../../lib/airtable";
 
-export default async (req, res) => {
+const upvoteCoffeeStore =  async (req, res) => {
     if('PUT' === req.method) {
         try {
             const { id } = req.body;
@@ -23,3 +23,5 @@ export default async (req, res) => {
         res.status(404).json({message: "resource not found."});
     }
 }
+
+export default upvoteCoffeeStore;

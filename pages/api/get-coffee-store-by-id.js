@@ -1,6 +1,6 @@
-import {getMinifiedRecords, table, findRecordByFilter} from "../../lib/airtable";
+import {findRecordByFilter} from "../../lib/airtable";
 
-export default async(req, res) => {
+const getCoffeeStoreById = async(req, res) => {
     const { id } = req.query;
     try {
         if(id) {
@@ -18,3 +18,5 @@ export default async(req, res) => {
         res.json({message: "Something went wrong:", error});
     }
 }
+
+export default getCoffeeStoreById;

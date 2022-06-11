@@ -11,4 +11,4 @@ EXPOSE 3000
 # make the port accessible in process.PORT in node js
 ENV PORT 3000
 
-CMD ["npm", "run", "dev"]
+CMD ["yarn", "dev"]

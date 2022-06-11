@@ -1,10 +1,15 @@
 {
   "name": "discover-coffee-store",
+  "author": "Yannick Sereckissy-Namboy",
+  "email": "yannick.sereckissy@gmail.com",
+  "license": "MIT",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build"
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
     "airtable": "^0.11.4",
@@ -12,7 +17,12 @@
     "next": "12",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
+    "sharp": "^0.30.6",
     "swr": "^1.3.0",
     "unsplash-js": "^7.0.15"
+  },
+  "devDependencies": {
+    "eslint": "8.17.0",
+    "eslint-config-next": "12.1.6"
   }
 }
