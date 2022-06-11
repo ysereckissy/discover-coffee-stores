@@ -1,4 +1,4 @@
-import {findRecordByFilter, getMinifiedRecords, table} from "../../lib/airtable";
+import {findRecordByFilter, getMinifiedRecords, table, updateCoffeeStores} from "../../lib/airtable";
 
 export default async (req, res) => {
     if('PUT' === req.method) {
@@ -8,22 +8,9 @@ export default async (req, res) => {
                 res.status(400);
                 return res.json({message: "Id is required"});
             }
-            const records = await findRecordByFilter(id);
+            const records = await updateCoffeeStores(id);
             if(records.length){
-                const record = records[0];
-                const calculatedVoting = parseInt(record.voting) + 1;
-                const updatedRecord = await table.update([{
-                    id: record.record_id,
-                    fields: {
-                        voting: calculatedVoting,
-                    }
-                }]);
-                if(updatedRecord) {
-                    res.json(getMinifiedRecords(updatedRecord));
-                } else {
-                    res.status(500);
-                    res.json({message: "Unexpected data format received!"});
-                }
+                res.json(records);
             } else {
                 res.status(404);
                 res.json({message: "Coffee Store Not Found", id});
