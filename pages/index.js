@@ -51,6 +51,7 @@ export default function Home(props) {
   return (
     <div className={styles.container}>
       <Head>
+          <meta name="description" content="the main page of the coffee discovery app"></meta>
         <title>Coffee Connoisseur</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
