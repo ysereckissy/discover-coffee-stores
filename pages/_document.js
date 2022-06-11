@@ -5,19 +5,19 @@ class MyDocument extends Document {
         return <Html lang="en">
             <Head>
                 <link
-                    rel="preload"
+                    rel="prefetch"
                     href="/fonts/IBMPlexSans-Bold.ttf"
                     as="font"
                     crossOrigin="anonymous"
                 ></link>
                 <link
-                    rel="preload"
+                    rel="prefetch"
                     href="/fonts/IBMPlexSans-Regular.ttf"
                     as="font"
                     crossOrigin="anonymous"
                 ></link>
                 <link
-                    rel="preload"
+                    rel="prefetch"
                     href="/fonts/IBMPlexSans-SemiBold.ttf"
                     as="font"
                     crossOrigin="anonymous"
